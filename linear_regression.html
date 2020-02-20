@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>linear regression</title>
+</head>
+<body>
+    θ0 : <input type="number" readonly id="teta0" value="0"> θ1 : <input type="number" readonly id="teta1" value="0">
+    <br>
+    <div>
+        <h3>prediction</h3>
+        distance : <input type="number" id="predDist" value="0"><br><br>
+        <button id="predBut" onclick="calcButton()">calcul</button> <input type="number" readonly id="predSolv">
+    </div>
+    <div>
+        <h3>entrainement</h3>
+        <input type="file" id="trainFile" accept=".csv"><br>
+        nombre iteration : <input type="number" id="predIte" value="10000"><br>
+        ratio d'apprentissage : <input type="number" id="predRatio" value="0.1"><br>
+        <button id="trainBut" onclick="trainalgo()">traine</button>
+    </div>
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <!-- page content -->
+</body>
+<script src="graph.js"></script>
+<script src="entrainement.js"></script>
+<script src="prediction.js"></script>
+<script src="parser.js"></script>
+</html>
