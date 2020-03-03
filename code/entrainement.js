@@ -1,14 +1,12 @@
 // const fs = require('fs') 
 
-function calcTetas(data, minX, maxX){
+function calcTetas(data, minX, maxX, learningRate, iteNumber){
 	let cpydata = JSON.parse(JSON.stringify(data))
 	let teta0 = 0
 	let teta1 = 0
-	const learningRate = document.getElementById('predRatio').value
-	const iteNumber = document.getElementById('predIte').value
 	var m = cpydata.length;
-	var tmpT0 = 1;
-	var tmpT1 = 1;
+	var tmpT0 = 0;
+	var tmpT1 = 0;
 	let scale = maxX - minX;
 
 	// Scale the Xs to speed up the algo
@@ -37,7 +35,5 @@ function calcTetas(data, minX, maxX){
 
 	// Scale down the slope
 	teta1 = teta1 / scale;
-
-	document.getElementById('teta0').value = teta0
-	document.getElementById('teta1').value = teta1
+	return {"t0": teta0, "t1": teta1}
 }

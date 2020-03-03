@@ -1,6 +1,5 @@
 
-function trainalgo() {
-	let files = document.getElementById('trainFile').files
+function trainalgo(files, learningRate, iteNumber) {
 	if (files.length != 1) {
 		alert("no file, one file is necessary")
 		return
@@ -10,8 +9,7 @@ function trainalgo() {
 	if (tmpfilename[tmpfilename.length - 1] != 'csv') {
 		alert("the file is not a csv")
 		return
-	}
-	// let file = document.getElementById('trainFile').value
+    }
 	var reader = new FileReader();
 	reader.onload = function(){
 		let nameX = ''
@@ -37,6 +35,7 @@ function trainalgo() {
 					line = [Number(line[0]),Number(line[1])]
 					if (line[0] == NaN || line[1] == NaN) {
 						alert("the line " + (i + 1) + " have bad number")
+						return
 					}
 					if (i == 1) {
 						minX = line[0]
@@ -51,10 +50,19 @@ function trainalgo() {
 			}
 		}
 		// console.log(data)
-        // calcTeta(data)
-        cleargraph()
-		calcTetas(data, minX, maxX)
-		creagraph(data, [{x:maxX,y:predicCalc(maxX)},{x:minX,y:predicCalc(minX)}],nameX,nameY)
+		// calcTeta(data)
+  		let thetas = calcTetas(data, minX, maxX, learningRate, iteNumber)
+		let sendData = {
+			"t0" : thetas.t0,
+			"t1" : thetas.t1,
+			"data" : data,
+			"minX" : minX,
+			"maxX" : maxX,
+			"nameX" : nameX,
+			"nameY" : nameY
+		}
+		let eventTheta = new CustomEvent('eventTheta', {detail: sendData})
+		document.dispatchEvent(eventTheta)
 	};
 	reader.readAsText(file);
 }
